@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import SideBar from './SideBar';
-import Footer from './Footer';
-import MovieList from './cine/MovieList';
-import CartDetails from './cine/CartDetails';
-import { MovieContext } from './contex';
-import { Toaster } from 'react-hot-toast';
+;
+import { MovieContext,ThemeContext } from './contex';
+
+import Page from './Page';
 const App = () => {
   const [cartData,setCartData]=useState([])
+  const [darkMode,setDarkMode]=useState(true)
   return (
     <>
+    <ThemeContext.Provider value={{darkMode,setDarkMode}}>
     <MovieContext.Provider value={{cartData,setCartData}} >
-      <Header />
-      <Toaster/>
-      <main>
-        <div className="container grid lg:grid-cols-[218px_1fr] gap-[3.5rem]">
-          <SideBar />
-          <MovieList/>
-        </div>
-      </main>
-      <Footer />
+     <Page/>
       </MovieContext.Provider>
+      </ThemeContext.Provider>
     </>
   );
 };

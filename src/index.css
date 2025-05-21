@@ -12,3 +12,6 @@
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
 }
+.dark{
+  @apply bg-[#171923] text-white
+}
