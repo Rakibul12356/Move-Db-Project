@@ -4,7 +4,8 @@ import Rating from './Rating';
 import MovieDetailsModal from './MovieDetailsModal';
 import tagImg from "../assets/tag.svg"
 import { MovieContext } from '../contex';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
+
 
 const MovieCard = ({ movie }) => {
    
@@ -36,15 +37,11 @@ const MovieCard = ({ movie }) => {
                     ...movie
                 }
             })
+            toast.success(`${movie.title} added successfully to the cart`)
         }else{
             console.error(`The movie ${movie.title} has been added to the cart already `);
             toast.error(` ${movie.title} has been added to the cart already `);
-        
         }
-        
-        
-        
-       
 
     }
     return (
@@ -61,12 +58,12 @@ const MovieCard = ({ movie }) => {
                         <div className="flex items-center space-x-1 mb-5">
                             <Rating value={movie.rating} />
                         </div>
-                       <a className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
+                       <button className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
                             href="#" 
                             onClick={(event)=>handleAddToCart(event,movie)}>
                             <img src={tagImg} alt="" />
                             <span>{movie.price} | Add to Cart</span>
-                        </a>
+                        </button>
                     </figcaption>
                 </a>
                  

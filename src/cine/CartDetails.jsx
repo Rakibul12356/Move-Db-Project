@@ -4,6 +4,7 @@ import deleteIcon from "../assets/delete.svg"
 import checkIcon from "../assets/icons/checkout.svg"
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { getImgUrl } from '../utils/cine-utility';
+import { toast } from 'react-toastify';
 
 const CartDetails = ({ onClose }) => {
     const { state,dispatch } = useContext(MovieContext)
@@ -14,6 +15,7 @@ const CartDetails = ({ onClose }) => {
             type:"REMOVE_FROM_CART",
             payload:item
         })
+        toast.success(`Remove ${item.title} from the Cart`)
     }
    
     return (
