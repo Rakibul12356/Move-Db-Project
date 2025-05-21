@@ -6,13 +6,16 @@ import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { getImgUrl } from '../utils/cine-utility';
 
 const CartDetails = ({ onClose }) => {
-    const { cartData, setCartData } = useContext(MovieContext)
-    const handleDeleteCart =(e,itemId)=>{
+    const { state,dispatch } = useContext(MovieContext)
+    const handleDeleteCart =(e,item)=>{
         e.preventDefault()
-        const filteredItem = cartData.filter((item)=>{ return item.id !== itemId});
-        setCartData([...filteredItem])
+        
+        dispatch({
+            type:"REMOVE_FROM_CART",
+            payload:item
+        })
     }
-    console.log(cartData)
+   
     return (
         <>
             <div
@@ -24,9 +27,11 @@ const CartDetails = ({ onClose }) => {
                     <div
                         className="bg-white shadow-md dark:bg-[#12141D] rounded-2xl overflow-hidden p-5 md:p-9"
                     >
-                        <h2 className="text-2xl lg:text-[30px] mb-10 font-bold">Your Carts</h2>
+                        <h2 className="text-2xl lg:text-[30px] mb-10 font-bold text-black"> Your Carts</h2>
                         {
-                            cartData.length === 0 ? <div><span className='text-3xl font-extrabold'>No Movie Added !</span>
+                           state.cartData.length === 0 ?
+                            <div>
+                            <span className='text-3xl font-extrabold text-black'>No Movie Added !</span>
                                 <div className='flex'>
                                     <a
                                         className="border border-[#74766F] rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#6F6F6F] dark:text-gray-200 font-semibold text-sm"
@@ -36,12 +41,14 @@ const CartDetails = ({ onClose }) => {
                                         Go Back
                                     </a>
                                 </div>
-                            </div> : <div
+                            </div> 
+                            : 
+                            <div
                                 className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14"
                             >
                                 {/**items */}
                                 {
-                                    cartData.map(item => <div key={item.id}  className="grid grid-cols-[1fr_auto] gap-4">
+                                    state.cartData.map(item => <div key={item.id}  className="grid grid-cols-[1fr_auto] gap-4">
                                         <div className="flex items-center gap-4">
                                             <img
                                                 className="rounded overflow-hidden w-20 h-22"
@@ -58,7 +65,7 @@ const CartDetails = ({ onClose }) => {
                                         </div>
                                         <div className="flex justify-between gap-4 items-center">
                                             <button
-                                            onClick={(event)=>handleDeleteCart(event,item.id)}
+                                            onClick={(event)=>handleDeleteCart(event,item)}
                                                 className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
                                             >
                                                 <img className="w-5 h-5" src={deleteIcon} alt="" />
